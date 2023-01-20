@@ -1,8 +1,6 @@
 import Head from "next/head";
 
 //components
-import Header from "../Components/Header/Header.jsx";
-import Footer from "../Components/Footer/Footer.jsx";
 import GridContainer from "../Components/Grid/GridContainer.jsx";
 import Grid from "../Components/Grid/Grid.jsx";
 import SearchBar from "../Components/SearchBar/searchBar.jsx";
@@ -26,7 +24,7 @@ const Home = (props) => {
             <Grid key={item._id} item={item} clickable={true} />
           ))}
           <div className="flex justify-center p-2 w-full">
-            <button className="text-base text-slate-900 font-bold text-center w-[100px] h-[40px] p-2 bg-slate-700 rounded-full transition hover:bg-slate-600 hover:scale-[1.1]">
+            <button className="text-base text-slate-900 font-bold text-center w-[100px] h-[40px] p-2 bg-slate-700 rounded-full transition hover:bg-slate-600 hover:scale-[1.1] active:scale-[0.9]">
               Load More
             </button>
           </div>

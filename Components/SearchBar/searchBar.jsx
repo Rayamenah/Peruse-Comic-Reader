@@ -1,7 +1,6 @@
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import Search from "./Search";
-//import searchIcon from "../.././assets/search-icon.svg";
+import { Search } from "./Search";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const SearchBar = ({ clickable }) => {
   const [search, setSearch] = useState();
@@ -23,27 +22,24 @@ const SearchBar = ({ clickable }) => {
     };
 
     const timer = setTimeout(() => {
-      fetch(`https://manga-scrapper.p.rapidapi.com/search/${search}/`, options)
-        .then((response) => response.json())
-        .then((response) => setSearchTerm(response))
-        .catch((err) => console.error(err));
+      if (search) {
+        fetch(
+          `https://manga-scrapper.p.rapidapi.com/search/${search}/`,
+          options
+        )
+          .then((response) => response.json())
+          .then((response) => setSearchTerm(response))
+          .catch((err) => console.error(err));
+      }
     }, 1000);
 
     return () => clearTimeout(timer);
   }, [search]);
 
-  console.log(search);
-  console.log(searchTerm);
   return (
     <>
       <div className="relative p-2 bg-slate-700">
-        {/* <Image
-          className="absolute top-2 left-2 w-8 h-8 p-2"
-          src={searchIcon}
-          alt=""
-          width={20}
-          height={20}
-        /> */}
+        <AiOutlineSearch className="fill-slate-300 absolute top-[14px] left-[14px] w-5 h-5" />
         <input
           className="pl-8 w-full h-8 rounded-md px-4 bg-transparent border-2 border-slate-800 text-slate-100 text-sm "
           type="text"

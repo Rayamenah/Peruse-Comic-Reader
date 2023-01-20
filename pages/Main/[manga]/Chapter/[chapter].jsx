@@ -1,21 +1,19 @@
 import Image from "next/image";
 
 const Chapter = ({ data }) => {
- 
   return (
     <div className="bg-slate-500">
       <p>{data.data.ChapterTitle}</p>
       {data.data.ChapterContent.map((item) => (
         <Image
           className="m-auto w-full max-w-[640px]"
-          key={data._id}
+          key={item._id}
           src={item}
           alt=""
           width={200}
           height={10}
         />
       ))}
-      stuff should be here
     </div>
   );
 };
@@ -23,7 +21,6 @@ const Chapter = ({ data }) => {
 export const getServerSideProps = async (context) => {
   const { chapter } = context.query;
   const { manga } = context.query;
-
 
   const options = {
     method: "GET",

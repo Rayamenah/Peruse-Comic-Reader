@@ -1,14 +1,29 @@
 import React, { useState, useContext } from "react";
+import { toast } from "react-hot-toast";
 import { Context } from "../../_app";
 import Image from "next/image";
+import { AiFillHeart } from "react-icons/ai";
 //components
 import ChapContainer from "../../../Components/Hero/ChapContainer.jsx";
 
 // const [star, setStar] = useState()
 const MangaDetails = (props) => {
-  const { FavoriteManga } = useContext(Context);
+  const { favorites, setFavorites } = useContext(Context);
   const { Manga, Chapter } = props;
 
+  const FavoriteManga = (manga) => {
+    const checkFav = favorites.find((item) => item._id === manga._id);
+    if (checkFav) {
+      toast.error("Already in your favorites");
+    } else {
+      setFavorites((prev) => [...prev, { ...manga }]);
+      toast.success("Added to favorites");
+    }
+  };
+
+  // const handleclick = () => {
+  //   FavoriteManga(Manga);
+  // }
   return (
     <>
       {/* //////hero section////// */}
@@ -22,18 +37,19 @@ const MangaDetails = (props) => {
             width={300}
             height={80}
           />
-          <div className="pl-2 mt-2">
-            <p className="mb-1  text-base font-semibold text-slate-700">
+          <div className="p-2 mt-2">
+            <p className="mb-1 text-base font-semibold text-slate-700">
               Title: {Manga.data.MangaTitle}
             </p>
           </div>
         </article>
-        <p className="pl-1 text-xs text-slate-600">
-          <span className="mb-1  text-base font-semibold text-slate-700">
+        <p className="p-2 text-sm text-slate-600">
+          <span className=" text-base font-semibold text-slate-700">
             Description
           </span>{" "}
           : {Manga.data.MangaSynopsis}
         </p>
+        <AiFillHeart onClick={() => FavoriteManga(Manga)} />
 
         {/* ///////////////////chapter section///////////// */}
 
