@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, createContext } from "react";
 import Layout from "../Components/Layout.jsx";
 
 export const Context = createContext();
@@ -11,11 +11,11 @@ const App = ({ Component, pageProps }) => {
   return (
     <Context.Provider
       value={{
-        // FavoriteManga,
         favorites,
         setFavorites,
         show,
         setShow,
+
       }}
     >
       <Layout>

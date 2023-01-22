@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
-import { Context } from "../../pages/_app.jsx";
 import Link from "next/link";
+import { Context } from "../../pages/_app.jsx";
 import { FaSignInAlt } from "react-icons/fa";
-import { AiFillHeart } from "react-icons/ai";
 import { BiBookReader } from "react-icons/bi";
 
-import Favorites from "./Favorites";
+// import Favorites from "./Favorites.jsx";
 
 const Header = () => {
   const { show, setShow } = useContext(Context);
@@ -29,10 +28,10 @@ const Header = () => {
           >
             <FaSignInAlt />
           </Link>
-          <AiFillHeart className="h-6 w-6" onClick={() => setShow(!show)} />
+          {/* <AiFillHeart className="h-6 w-6" onClick={() => setShow(true)} /> */}
         </div>
       </nav>
-      {show && <Favorites />}
+      {/* {show && <Favorites />} */}
     </>
   );
 };

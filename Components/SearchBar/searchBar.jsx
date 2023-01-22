@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Search } from "./Search";
+import Search from "./Search";
 import { AiOutlineSearch } from "react-icons/ai";
 
-const SearchBar = ({ clickable }) => {
+const SearchBar = () => {
   const [search, setSearch] = useState();
   const [searchTerm, setSearchTerm] = useState([]);
+
 
   const handleChange = (e) => {
     setTimeout(() => {
       setSearch(e.target.value);
-    }, 2000);
+    }, 500);
   };
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const SearchBar = ({ clickable }) => {
         />
         {search &&
           searchTerm.data?.result.map((item) => (
-            <Search title={item.MangaTitle} key={item._id} MangaId={item._id} />
+            <Search title={item.MangaTitle} key={item.MangaSynopsis} MangaId={item._id} />
           ))}
       </div>
     </>

@@ -1,29 +1,41 @@
 import React, { useState, useContext } from "react";
-import { toast } from "react-hot-toast";
+import { ToastContainer, toast } from "react-toastify";
+
 import { Context } from "../../_app";
 import Image from "next/image";
-import { AiFillHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 //components
 import ChapContainer from "../../../Components/Hero/ChapContainer.jsx";
 
-// const [star, setStar] = useState()
 const MangaDetails = (props) => {
+  const [star, setStar] = useState(false)
   const { favorites, setFavorites } = useContext(Context);
   const { Manga, Chapter } = props;
 
-  const FavoriteManga = (manga) => {
-    const checkFav = favorites.find((item) => item._id === manga._id);
-    if (checkFav) {
-      toast.error("Already in your favorites");
+
+  const FavoriteManga = () => {
+    setStar(!star);
+    const checkFav = favorites.find((item) => item._id === Manga._id);
+
+    if (star) {
+      if (checkFav) {
+        toast.success("Already in your favorites");
+      } else {
+        setFavorites((prev) => [...prev, { ...Manga }]);
+        toast.success("Added to favorites");
+        localStorage.setItem("favorites", Manga)
+        setStar(false)
+
+      }
     } else {
-      setFavorites((prev) => [...prev, { ...manga }]);
-      toast.success("Added to favorites");
+      const remove = favorites.filter((item) => item._id !== Manga._id)
+      setFavorites(remove)
+      toast.success("removed from favorites")
     }
+
   };
 
-  // const handleclick = () => {
-  //   FavoriteManga(Manga);
-  // }
+
   return (
     <>
       {/* //////hero section////// */}
@@ -49,7 +61,12 @@ const MangaDetails = (props) => {
           </span>{" "}
           : {Manga.data.MangaSynopsis}
         </p>
-        <AiFillHeart onClick={() => FavoriteManga(Manga)} />
+        {/* <div>
+          <button className="ml-2 p-2 rounded-full bg-slate-300 transition-all hover:scale-110 active:scale-90" onClick={FavoriteManga}> {(star) ? <AiOutlineHeart className="w-4 h-4" /> : <AiFillHeart className="w-4 h-4" />}
+          </button>
+          <ToastContainer />
+        </div> */}
+
 
         {/* ///////////////////chapter section///////////// */}
 

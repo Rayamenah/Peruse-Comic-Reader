@@ -1,13 +1,21 @@
+"use client"
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router"
 
 const Chapter = ({ data }) => {
+  const router = useRouter()
+  const route = router.query
+
+  console.log(route)
+  console.log(data)
   return (
-    <div className="bg-slate-500">
-      <p>{data.data.ChapterTitle}</p>
+    <div className="bg-slate-500 px-2">
+      <Link className=" text-slate-700" href={`Main/${route.manga}`}>{data.data.ChapterTitle}</Link>
       {data.data.ChapterContent.map((item) => (
         <Image
           className="m-auto w-full max-w-[640px]"
-          key={item._id}
+          key={item}
           src={item}
           alt=""
           width={200}
