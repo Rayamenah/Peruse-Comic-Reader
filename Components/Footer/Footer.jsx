@@ -20,7 +20,7 @@ const Footer = () => {
             <FaTwitter />
           </a>
           <a
-            href="raymondamenah@gmail.com"
+            href="mailto:raymondamenah@gmail.com"
             className="text-center text-sm font-bold p-6 w-10 h-10"
           >
             <SiGmail />

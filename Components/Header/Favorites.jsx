@@ -18,7 +18,7 @@ const Favorite = () => {
           className="absolute top-4 right-[13px] h-6 w-6 cursor-pointer"
           onClick={() => setShow(false)}
         />
-        {favorites.map((item) => (
+        {favorites.length > 1 && favorites.map((item) => (
           <Link href={`Main/${item.data._id}`} key={item.data._id}>{item.data.MangaTitle}</Link>
         ))}
       </div>
