@@ -1,11 +1,18 @@
 import Head from "next/head";
+import React, { useContext } from "react";
+import { Context } from "./_app.jsx";
+
 
 //components
 import GridContainer from "../Components/Grid/GridContainer.jsx";
 import Grid from "../Components/Grid/Grid.jsx";
 import SearchBar from "../Components/SearchBar/searchBar.jsx";
+import Favorites from "../Components/Header/Favorites.jsx";
+
 
 const Home = (props) => {
+  const { show, setShow } = useContext(Context);
+
   const data = props.manga.data;
 
   return (
@@ -18,6 +25,7 @@ const Home = (props) => {
       </Head>
       <main>
         <SearchBar clickable />
+        {show && <Favorites />}
         <GridContainer>
           {" "}
           {data?.series?.map((item) => (
@@ -52,7 +60,7 @@ export const getStaticProps = async () => {
     props: {
       manga,
     },
-    revalidate: 3600,
+
   };
 };
 

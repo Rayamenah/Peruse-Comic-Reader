@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Context } from "../../_app";
 import Image from "next/image";
@@ -8,32 +9,25 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import ChapContainer from "../../../Components/Hero/ChapContainer.jsx";
 
 const MangaDetails = (props) => {
-  const [star, setStar] = useState(false)
+
   const { favorites, setFavorites } = useContext(Context);
   const { Manga, Chapter } = props;
+  const checkFav = favorites.find((item) => item._id === Manga._id);
+
 
 
   const FavoriteManga = () => {
-    setStar(!star);
-    const checkFav = favorites.find((item) => item._id === Manga._id);
+    const remove = favorites.filter((item) => item._id !== Manga._id)
 
-    if (star) {
-      if (checkFav) {
-        toast.success("Already in your favorites");
-      } else {
-        setFavorites((prev) => [...prev, { ...Manga }]);
-        toast.success("Added to favorites");
-        localStorage.setItem("favorites", Manga)
-        setStar(false)
-
-      }
+    if (!checkFav) {
+      setFavorites((prev) => [...prev, { ...Manga }]);
+      toast.success("Added to favorites");
+      // localStorage.setItem("favorites", Manga)
     } else {
-      const remove = favorites.filter((item) => item._id !== Manga._id)
       setFavorites(remove)
       toast.success("removed from favorites")
     }
-
-  };
+  }
 
 
   return (
@@ -41,36 +35,42 @@ const MangaDetails = (props) => {
       {/* //////hero section////// */}
 
       <section className="w-full m-auto max-w-4xl bg-slate-200">
-        <article className="w-full md:block font-sans">
-          <Image
-            src={Manga.data.MangaCover}
-            alt=""
-            className="object-fit mx-auto h-96 md:mx-auto md:h-96"
-            width={300}
-            height={80}
-          />
+        {Manga && <article className="w-full md:block font-sans">
+          <div className=" relative mx-auto h-96 md:mx-auto md:h-96">
+            <Image
+              src={Manga?.data?.MangaCover || "https://img.freepik.com/premium-vector/modern-minimal-404-error-page-website-404-error-page-found-with-dead-ghost-concept_599740-714.jpg?w=2000"
+              }
+              alt=""
+              fill
+              priority={true}
+              className="object-contain top-0 left-0"
+            />
+          </div>
+
           <div className="p-2 mt-2">
-            <p className="mb-1 text-base font-semibold text-slate-700">
-              Title: {Manga.data.MangaTitle}
-            </p>
+            <h1 className="mb-1 text-base font-semibold text-slate-700">
+              Title: {Manga?.data?.MangaTitle}
+            </h1>
+          </div>
+
+          <p className="p-2 text-sm text-slate-600">
+            <span className=" text-base font-semibold text-slate-700">
+              Description
+            </span>{" "}
+            : {Manga?.data?.MangaSynopsis}
+          </p>
+          <div>
+            <button className="ml-2 p-2 rounded-full bg-slate-300 transition-all hover:scale-110 active:scale-90" onClick={FavoriteManga}> {(checkFav) ? < AiFillHeart className="w-4 h-4" /> : <AiOutlineHeart className="w-4 h-4" />}
+            </button>
+            <ToastContainer />
           </div>
         </article>
-        <p className="p-2 text-sm text-slate-600">
-          <span className=" text-base font-semibold text-slate-700">
-            Description
-          </span>{" "}
-          : {Manga.data.MangaSynopsis}
-        </p>
-        {/* <div>
-          <button className="ml-2 p-2 rounded-full bg-slate-300 transition-all hover:scale-110 active:scale-90" onClick={FavoriteManga}> {(star) ? <AiOutlineHeart className="w-4 h-4" /> : <AiFillHeart className="w-4 h-4" />}
-          </button>
-          <ToastContainer />
-        </div> */}
+        }
 
 
         {/* ///////////////////chapter section///////////// */}
 
-        {
+        {Chapter &&
           <article className="border-slate-800 bg-slate-400 rounded-sm font-sans">
             {Chapter?.data?.series.map((chapter) => (
               <ChapContainer
@@ -112,7 +112,7 @@ export const getStaticPaths = async () => {
   }));
   return {
     paths,
-    fallback: "blocking",
+    fallback: false,
   };
 };
 
