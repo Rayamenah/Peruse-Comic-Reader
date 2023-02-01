@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -22,7 +22,7 @@ const MangaDetails = (props) => {
     if (!checkFav) {
       setFavorites((prev) => [...prev, { ...Manga }]);
       toast.success("Added to favorites");
-      // localStorage.setItem("favorites", Manga)
+
     } else {
       setFavorites(remove)
       toast.success("removed from favorites")

@@ -28,7 +28,7 @@ const Header = () => {
           >
             <FaSignInAlt />
           </Link>
-          <AiFillHeart className="h-6 w-6" onClick={() => setShow(true)} />
+          <AiFillHeart className="h-6 w-6 transition hover:scale-110 active:scale-90" onClick={() => setShow(true)} />
         </div>
       </nav>
     </>
