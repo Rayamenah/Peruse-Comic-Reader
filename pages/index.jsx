@@ -6,7 +6,7 @@ import { Context } from "./_app.jsx";
 //components
 import GridContainer from "../Components/Grid/GridContainer.jsx";
 import Grid from "../Components/Grid/Grid.jsx";
-import SearchBar from "../Components/SearchBar/searchBar.jsx";
+import SearchBar from "../Components/SearchBar/SearchBar.jsx";
 import Favorites from "../Components/Header/Favorites.jsx";
 
 
