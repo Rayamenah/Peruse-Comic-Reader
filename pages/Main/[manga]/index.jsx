@@ -105,11 +105,13 @@ export const getStaticPaths = async () => {
   const page = await res.json();
   const data = page.data;
 
-  const paths = await data?.series?.map((item) => ({
+  const path = data?.series?.map((item) => ({
     params: {
       manga: item._id,
     },
   }));
+
+  const paths = await path
   return {
     paths,
     fallback: false,
