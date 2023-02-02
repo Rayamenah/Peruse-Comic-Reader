@@ -7,14 +7,13 @@ import Image from "next/image";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 //components
 import ChapContainer from "../../../Components/Hero/ChapContainer.jsx";
+import Favorites from "../../../Components/Header/Favorites.jsx"
 
 const MangaDetails = (props) => {
 
-  const { favorites, setFavorites } = useContext(Context);
+  const { favorites, setFavorites, show } = useContext(Context);
   const { Manga, Chapter } = props;
   const checkFav = favorites.find((item) => item._id === Manga._id);
-
-
 
   const FavoriteManga = () => {
     const remove = favorites.filter((item) => item._id !== Manga._id)
@@ -32,8 +31,8 @@ const MangaDetails = (props) => {
 
   return (
     <>
+      {show && <Favorites />}
       {/* //////hero section////// */}
-
       <section className="w-full m-auto max-w-4xl bg-slate-200">
         {Manga && <article className="w-full md:block font-sans">
           <div className=" relative mx-auto h-96 md:mx-auto md:h-96">
@@ -105,9 +104,9 @@ export const getStaticPaths = async () => {
   const page = await res.json();
   const data = page.data;
 
-  const path = data?.series?.map((item) => ({
+  const path = await data?.series?.map((item) => ({
     params: {
-      [manga]: item._id
+      manga: item._id
     },
   }));
 

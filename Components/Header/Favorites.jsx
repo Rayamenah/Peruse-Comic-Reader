@@ -8,20 +8,21 @@ const Favorite = () => {
   const { setShow, favorites } = useContext(Context);
 
   return (
-    <div className="transition-all">
-      <div className="absolute z-10 top-0 right-0 h-full w-full bg-slate-500 md:w-1/2">
-        <h1 className="text-xl font-bold mt-4 ml-4 text-slate-900 ">
+    <div className="absolute z-10 top-0 right-0 h-screen w-full  bg-slate-500 md:w-1/2 transition-all">
+      <div className="flex justify-between items-center border-b border-slate-800 p-2 ">
+        <h1 className="text-xl font-bold text-slate-900 ">
           Favorites
         </h1>
 
         <GiCancel
-          className="absolute top-4 right-[13px] h-6 w-6 cursor-pointer"
+          className=" h-6 w-6 cursor-pointer transition text-slate-900 hover:scale-110 active:scale-90"
           onClick={() => setShow(false)}
         />
-        {favorites.length > 1 && favorites.map((item) => (
-          <Link href={`Main/${item.data._id}`} key={item.data._id}>{item.data.MangaTitle}</Link>
-        ))}
       </div>
+      {favorites.map((item) => (
+        <Link href={`./${item.data._id}`} className="ml-2 mt-4 font-bold text-slate-900 hover:text-slate-700" key={item.data._id}>{item.data.MangaTitle}</Link>
+      ))}
+
     </div>
   );
 };
