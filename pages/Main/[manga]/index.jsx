@@ -107,7 +107,7 @@ export const getStaticPaths = async () => {
 
   const path = data?.series?.map((item) => ({
     params: {
-      manga: item._id,
+      [manga]: item._id
     },
   }));
 
