@@ -8,8 +8,8 @@ const Favorite = () => {
   const { setShow, favorites } = useContext(Context);
 
   return (
-    <div className="absolute z-10 top-0 right-0 h-screen w-full  bg-slate-500 md:w-1/2 transition-all">
-      <div className="flex justify-between items-center border-b border-slate-800 p-2 ">
+    <div className="absolute z-10 top-0 right-0 h-screen w-full  bg-slate-500 sm:w-1/2 md:w-1/2 transition-all">
+      <div className="flex justify-between items-center border-b border-slate-800 p-2 py-[14px] ">
         <h1 className="text-xl font-bold text-slate-900 ">
           Favorites
         </h1>

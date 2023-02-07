@@ -31,7 +31,7 @@ const Footer = () => {
           Designed by Raymond
         </p>
         <p className="text-center text-sm font-bold p-6 text-slate-400">
-          All rghts reserved
+          All rights reserved
         </p>
       </footer>
     </>

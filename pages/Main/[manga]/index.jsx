@@ -95,27 +95,39 @@ export const getStaticPaths = async () => {
       "X-RapidAPI-Host": "manga-scrapper.p.rapidapi.com",
     },
   };
+  const mangapage = async () => {
+    const res = await fetch(
+      "https://manga-scrapper.p.rapidapi.com/series/?provider=asura&page=1&limit=20",
+      options
+    );
+    const page = await res.json();
+    const data = page.data;
+    return data?.series?.map(item => {
+      return {
+        params: {
+          manga: item._id
+        }
+      }
+    })
+  }
 
-  const res = await fetch(
-    "https://manga-scrapper.p.rapidapi.com/series/?provider=asura&page=1&limit=20",
-    options
-  );
 
-  const page = await res.json();
-  const data = page.data;
+  const paths = await mangapage()
 
-  const path = await data?.series?.map((item) => ({
-    params: {
-      manga: item._id
-    },
-  }));
-
-  const paths = await path
   return {
     paths,
     fallback: false,
   };
 };
+
+
+//   const path = await data?.series?.map((item) => ({
+//     params: {
+//       manga: item._id
+//     },
+//   }));
+
+
 
 export const getStaticProps = async ({ params }) => {
   const options = {

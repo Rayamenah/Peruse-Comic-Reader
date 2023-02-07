@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <>
-      <nav className=" w-full z-10 font-sans h-14 p-2 bg-gray-100 flex flex-row justify-between items-center font-bold md:h-15  ">
+      <nav className=" w-full shadow-xl z-10 font-sans h-14 p-2 bg-gray-100 flex flex-row justify-between items-center font-bold md:h-15  ">
         <Link
           href="/"
           className="ml-2 text-xl text-center text-slate-800 md:text-2xl"
