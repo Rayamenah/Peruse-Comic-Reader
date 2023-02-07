@@ -8,12 +8,13 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 //components
 import ChapContainer from "../../../Components/Hero/ChapContainer.jsx";
 import Favorites from "../../../Components/Header/Favorites.jsx"
-
 const MangaDetails = (props) => {
 
-  const { favorites, setFavorites, show } = useContext(Context);
+  const { show, favorites, setFavorites } = useContext(Context);
   const { Manga, Chapter } = props;
   const checkFav = favorites.find((item) => item._id === Manga._id);
+
+
 
   const FavoriteManga = () => {
     const remove = favorites.filter((item) => item._id !== Manga._id)
@@ -33,6 +34,7 @@ const MangaDetails = (props) => {
     <>
       {show && <Favorites />}
       {/* //////hero section////// */}
+
       <section className="w-full m-auto max-w-4xl bg-slate-200">
         {Manga && <article className="w-full md:block font-sans">
           <div className=" relative mx-auto h-96 md:mx-auto md:h-96">
@@ -87,6 +89,36 @@ const MangaDetails = (props) => {
   );
 };
 
+// export const getStaticPaths = async () => {
+//   const options = {
+//     method: "GET",
+//     headers: {
+//       "X-RapidAPI-Key": process.env.API_KEY,
+//       "X-RapidAPI-Host": "manga-scrapper.p.rapidapi.com",
+//     },
+//   };
+
+//   const res = await fetch(
+//     "https://manga-scrapper.p.rapidapi.com/series/?provider=asura&page=1&limit=20",
+//     options
+//   );
+
+//   const page = await res.json();
+//   const data = page.data;
+
+//   const path = data?.series?.map((item) => ({
+//     params: {
+//       manga: item._id,
+//     },
+//   }));
+
+//   const paths = await path
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// };
+
 export const getStaticPaths = async () => {
   const options = {
     method: "GET",
@@ -95,38 +127,30 @@ export const getStaticPaths = async () => {
       "X-RapidAPI-Host": "manga-scrapper.p.rapidapi.com",
     },
   };
-  const mangapage = async () => {
-    const res = await fetch(
-      "https://manga-scrapper.p.rapidapi.com/series/?provider=asura&page=1&limit=20",
-      options
-    );
-    const page = await res.json();
-    const data = page.data;
-    return data?.series?.map(item => {
-      return {
-        params: {
-          manga: item._id
-        }
-      }
-    })
+
+  const res = await fetch(
+    "https://manga-scrapper.p.rapidapi.com/series/?provider=asura&page=1&limit=20",
+    options
+  );
+
+  const page = await res.json();
+  const data = page.data;
+
+  const paths = data?.series?.map((item) => ({
+    params: {
+      manga: item._id,
+    },
+  }));
+  console.log(paths)
+  if (!Array.isArray(paths)) {
+    throw new Error(`Invalid paths value returned from getStaticPaths: ${paths}`);
   }
-
-
-  const paths = await mangapage()
 
   return {
     paths,
     fallback: false,
   };
 };
-
-
-//   const path = await data?.series?.map((item) => ({
-//     params: {
-//       manga: item._id
-//     },
-//   }));
-
 
 
 export const getStaticProps = async ({ params }) => {

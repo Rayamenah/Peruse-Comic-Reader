@@ -1,14 +1,16 @@
-// import { Suspense } from "react";
+import { Suspense } from "react";
 import Header from "./Header/Header.jsx";
 import Footer from "./Footer/Footer.jsx";
-// import Spinner from "./Spinner/Spinner.jsx";
+import Loading from "./Loading/Loading.js";
 
 const Layout = ({ children }) => {
   return (
     <>
       {" "}
       <Header />
-      {children}
+      <Suspense fallback={<Loading />}>
+        {children}
+      </Suspense>
       <Footer />
     </>
   );
