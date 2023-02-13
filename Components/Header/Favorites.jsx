@@ -19,7 +19,7 @@ const Favorite = () => {
           onClick={() => setShow(false)}
         />
       </div>
-      {favorites.map((item) => (
+      {favorites?.map((item) => (
         <Link href={`./${item.data._id}`} className="ml-2 mt-4 font-bold text-slate-900 hover:text-slate-700" key={item.data._id}>{item.data.MangaTitle}</Link>
       ))}
 
